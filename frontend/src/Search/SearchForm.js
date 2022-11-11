@@ -9,7 +9,7 @@ function SearchForm({ query }){
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearch(query);
+    setSearch(search);
   };
 
 

@@ -1,8 +1,14 @@
 import React from 'react';
+import './CompanyCard.css'
 
-function CompanyCard(){
+
+function CompanyCard({name, description, logo}){
   return (
-    <div>this is a company card </div>
+    <div>
+      {name}
+      <p><small>{description}</small></p>
+
+    </div>
   )
 }
 
