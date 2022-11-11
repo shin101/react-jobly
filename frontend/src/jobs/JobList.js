@@ -17,8 +17,16 @@ function JobList(){
 
   return (
     <div>
-      <input></input>
-      <button type="submit">Search</button>
+      <input 
+      onChange={(e) => 
+        setSearchTerm(e.target.value)}
+        name="search-term"
+        value={searchTerm}
+      />
+      <button type="submit" onClick={async e=> {
+        e.preventDefault();
+        setJobs(await JoblyApi.getAllJobs({ title: searchTerm }));
+        }}>Search</button>
 
       {jobs.map(job =>(<JobCard {...job} />))}
 

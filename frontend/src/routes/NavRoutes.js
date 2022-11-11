@@ -24,6 +24,7 @@ function NavRoutes (){
         <Route exact path="/jobs" element={<JobList />} />
       </Routes>
 
+
     </div>  
   )
 }

@@ -49,8 +49,8 @@ class JoblyApi {
   }
 
   // show all jobs
-  static async getAllJobs() {
-    let res = await this.request('jobs/');
+  static async getAllJobs(json = {}) {
+    let res = await this.request('jobs/', json);
     return res.jobs;
   }
 }
