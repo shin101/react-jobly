@@ -1,5 +1,5 @@
 import React from 'react';
-import './CompanyCard.css'
+import './Cards.css'
 import { Link } from "react-router-dom";
 
 

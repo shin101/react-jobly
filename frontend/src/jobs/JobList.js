@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import JoblyApi from "../API/api"
-import SearchForm from "../Search/SearchForm";
+import JobCard from "./JobCard";
 
 
 function JobList(){
   const [jobs, setJobs] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     async function search(){
@@ -16,10 +17,10 @@ function JobList(){
 
   return (
     <div>
-    <SearchForm />
+      <input></input>
+      <button type="submit">Search</button>
 
-    hihi
-      {/* {jobs.map(job => ({job}))} */}
+      {jobs.map(job =>(<JobCard {...job} />))}
 
    
     </div>
