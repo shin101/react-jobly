@@ -10,11 +10,12 @@ function SearchForm({ query }){
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearch(search);
+    
   };
 
 
   return (
-    <form onSubmit = {handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <input 
       placeholder="keyword here" 
       onChange={handleChange}/>

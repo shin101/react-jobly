@@ -21,7 +21,7 @@ class JoblyApi {
     //this has been provided to show you another way to pass the token. you are only expected to read this code for this project.
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-    const params = (method === "get")
+    const params = (method === "get") 
         ? data
         : {};
 
@@ -37,8 +37,8 @@ class JoblyApi {
   // Individual API routes
 
   // show all companies 
-  static async getAllCompanies() {
-    let res = await this.request('companies/');
+  static async getAllCompanies(json = {}) {
+    let res = await this.request('companies/', json);
     return res.companies;
   }
   /** Get details on a company by handle. */
@@ -48,7 +48,11 @@ class JoblyApi {
     return res.company;
   }
 
-  // obviously, you'll add a lot here ...
+  // show all jobs
+  static async getAllJobs() {
+    let res = await this.request('jobs/');
+    return res.jobs;
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)

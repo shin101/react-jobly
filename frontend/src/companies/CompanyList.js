@@ -6,6 +6,7 @@ import SearchForm from "../Search/SearchForm";
 
 function CompanyList(){
   const [companies, setCompanies] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     async function search(){
@@ -17,16 +18,18 @@ function CompanyList(){
 
   return (
     <div>
-    <SearchForm />
+      <input 
+        onChange={e => setSearchTerm(e.target.value)} 
+        name="search-term" 
+        value={searchTerm} 
+      />
+      <button type="submit" onClick={async e => {
+        e.preventDefault();
+        setCompanies(await JoblyApi.getAllCompanies({ name: searchTerm }));
+      }}>Search</button>
       {companies.map(company => (
-      <CompanyCard 
-      name = {company.name}
-      description = {company.description}
-      logo = {company.logo}
-      id = {company.id}
-      />))}
-
-   
+        <CompanyCard {...company} />
+      ))}
     </div>
   )
 }
