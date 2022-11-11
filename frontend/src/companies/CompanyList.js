@@ -23,6 +23,7 @@ function CompanyList(){
       name = {company.name}
       description = {company.description}
       logo = {company.logo}
+      id = {company.id}
       />))}
 
    
