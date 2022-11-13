@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 
 function RegisterForm({ signUp }) {
   const [form, setFormData] = useState({});
+  const navigate = useNavigate();
   
   function onChange (e) {
     const { name, value } = e.target;
@@ -50,9 +52,10 @@ function RegisterForm({ signUp }) {
           value={form.email} 
         />
       </div>
-        <button type="submit" onClick={e => {
+        <button type="submit" onClick={async (e) => {
           e.preventDefault();
-          signUp(form);
+          await signUp(form);
+          navigate('/login');
         }}>Register</button>
     </form>
   )

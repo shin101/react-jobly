@@ -3,40 +3,56 @@ import NavBar from './routes/NavBar';
 import { BrowserRouter } from "react-router-dom";
 import NavRoutes from './routes/NavRoutes'; 
 import JoblyApi from '../src/API/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import jwt from "jsonwebtoken";
+import UserContext from './Login/UserContext';
+
 
 
 function App() {
   const [token, setToken] = useState(null);
   const [currUser, setCurrUser] = useState(null);
+  
 
-  // function login(){
-  //   try {
+  
+  // triggered by state change of token 
+  // call backend to get information on the newly-logged-in user and store it in the currentUser state
 
-  //   } catch {
+  useEffect(() => {
+    let payload = jwt.decode(token);
+    JoblyApi.token = token; 
+    setCurrUser(payload);
+    // hit /token route??? 
+  }, [token]); // is [token] just a standard? do u need bracket 
 
-  //   }
-  // }
+  async function login(loginData){
+    try {
+      const token = await JoblyApi.login(loginData);
+      setToken(token);
+    } catch (e) {
+      return (e);
+    }
+  }
 
-  function signUp(signUpData){
+  async function signUp(signUpData){
     // returns token then update state
-      const token = JoblyApi.register(signUpData);
+      const token = await JoblyApi.register(signUpData);
       setToken(token);
     }
 
 
-    // function logOut(){
-    //   return (
-    //     "blah"
-    //   )
-    // }
+  function logOut(){
+    setCurrUser(null);
+  }
   
     return (
       <div>
         <BrowserRouter>
-          <NavBar currUser={currUser}/>
-          <NavRoutes signUp={signUp}/>
-       </BrowserRouter>
+          <UserContext.Provider value={{currUser}}>
+            <NavBar currUser={currUser}/>
+            <NavRoutes signUp={signUp} login={login} />
+          </UserContext.Provider>
+        </BrowserRouter>
       </div>
   
     );
