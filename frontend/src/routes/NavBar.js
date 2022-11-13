@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from "react-router-dom";
 import "./NavBar.css"
 
-function NavBar() {
+function NavBar({ currUser }) {
   function loggedInNav() {
     return (
       <div>
@@ -11,19 +11,15 @@ function NavBar() {
           <NavLink exact to="/">
             Jobly
           </NavLink>
-  
           <NavLink to="/companies">
             Companies
           </NavLink>
-  
           <NavLink to="/jobs">
             Jobs
           </NavLink>
-  
           <NavLink to="/profile">
             Profile
           </NavLink>
-  
           <NavLink to="/logout">
             Logout
           </NavLink>
@@ -39,11 +35,9 @@ function NavBar() {
           <NavLink exact to="/">
             Jobly
           </NavLink>
-  
           <NavLink to="/login">
             Login
           </NavLink>
-  
           <NavLink to="/signup">
             Sign Up
           </NavLink>
@@ -53,8 +47,7 @@ function NavBar() {
   }
 
   return (
-    loggedInNav()
-    // {currentUser ? loggedInNav() : loggedOutNav() }
+    currUser ? loggedInNav() : loggedOutNav()
   )
 }
 

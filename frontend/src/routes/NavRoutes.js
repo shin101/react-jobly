@@ -4,27 +4,26 @@ import CompanyList from "../companies/CompanyList";
 import ProfileForm from "../profiles/ProfileForm";
 import JobList from "../jobs/JobList";
 import CompanyDetail from "../companies/CompanyDetail";
+import RegisterForm from "../Login/RegisterForm";
 
-function NavRoutes (){
-  return(
+function NavRoutes({ signUp }) {
+  return (
     <div>
       <Routes>
         <Route exact path="/companies" element={<CompanyList />} />
       </Routes>
-
       <Routes>
         <Route exact path="/companies/:id" element={<CompanyDetail />} />
       </Routes>
-
       <Routes>
         <Route exact path="/profile" element={<ProfileForm />} />
       </Routes>
-
       <Routes>
         <Route exact path="/jobs" element={<JobList />} />
       </Routes>
-
-
+      <Routes>
+        <Route exact path="/signup" element={<RegisterForm sigUp={signUp} />} />
+      </Routes>
     </div>  
   )
 }
