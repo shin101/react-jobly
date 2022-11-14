@@ -6,12 +6,13 @@ import JoblyApi from '../src/API/api';
 import { useEffect, useState } from 'react';
 import jwt from "jsonwebtoken";
 import UserContext from './Login/UserContext';
+import useLocalStorage from './hooks/localStorage';
 
 
 function App() {
   const [token, setToken] = useState(null);
-  const [currUser, setCurrUser] = useState(null);
   const [applications, setApplications] = useState(new Set());
+  const [currUser, setCurrUser] = useLocalStorage(null);
   
   // triggered by state change of token 
   // call backend to get information on the newly-logged-in user and store it in the currentUser state
@@ -28,8 +29,11 @@ function App() {
 
     if (token) {
       loadCurrentUser();
-    }    
-  }, [token]); 
+    }
+  }, [setCurrUser, token]);
+
+
+
 
   async function login(loginData){
     try {
