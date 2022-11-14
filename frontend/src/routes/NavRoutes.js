@@ -8,7 +8,7 @@ import RegisterForm from "../Login/RegisterForm";
 import LoginForm from "../Login/LoginForm";
 import Homepage from "../Homepage/Homepage";
 
-function NavRoutes({ login, signUp }) {
+function NavRoutes({ login, signUp, edit }) {
   return (
     <div>
       <Routes>

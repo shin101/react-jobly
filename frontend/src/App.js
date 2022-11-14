@@ -47,9 +47,9 @@ function App() {
     return (
       <div>
         <BrowserRouter>
-          <UserContext.Provider value={{ currUser }}>
+          <UserContext.Provider value={{ currUser, setCurrUser }}>
             <NavBar logOut={logOut} />
-            <NavRoutes signUp={signUp} login={login} />
+            <NavRoutes signUp={signUp} login={login}  />
           </UserContext.Provider>
         </BrowserRouter>
       </div>
