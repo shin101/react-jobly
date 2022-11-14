@@ -7,14 +7,16 @@ import UserContext from '../Login/UserContext';
 function ProfileForm() {
   const navigate = useNavigate();
   const { currUser, setCurrUser } = useContext(UserContext);
-  const [form, setFormData] = useState({
+
+  const initialFormData = {
     firstName: currUser.firstName,
     lastName: currUser.lastName,
     email: currUser.email,
     username: currUser.username,
-    // why does this must be password : "" ? 
-    password: currUser.password
-  });
+    password: "",
+  };
+
+  const [form, setFormData] = useState(initialFormData);
 
   
   function onChange (e) {
@@ -35,7 +37,7 @@ function ProfileForm() {
           </div>
           <div>
             <label>First Name</label>
-            <input name="firstname" 
+            <input name="firstName" 
               onChange={onChange}
               value={form.firstName} 
             />
@@ -63,16 +65,16 @@ function ProfileForm() {
           </div>
           <button type="submit" onClick={async (e) => {
             e.preventDefault();
-            let newInfo = {
+            const newInfo = {
               firstName: form.firstName,
               lastName: form.lastName,
               email: form.email,
               password: form.password
             };
 
-            let username = form.username;
+            const username = form.username;
             
-            await JoblyApi.edit(username, newInfo);
+            setCurrUser(await JoblyApi.edit(username, newInfo));
             navigate('/companies');
           }}>Save Changes</button>
         </form>

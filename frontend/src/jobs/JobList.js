@@ -3,32 +3,38 @@ import JoblyApi from "../API/api"
 import JobCard from "./JobCard";
 
 
-function JobList(){
-  const [jobs, setJobs] = useState([]);
+function JobList({ jobs }) {
+  const [jobList, setJobList] = useState(jobs || []);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     async function search(){
-      setJobs(await JoblyApi.getAllJobs());
+      setJobList(await JoblyApi.getAllJobs());
     }
-    search();
-  }, []);
+
+    if (!jobList.length) {
+      search();
+    }
+  }, [jobList.length]);
 
 
   return (
     <div>
-      <input 
-      onChange={(e) => 
-        setSearchTerm(e.target.value)}
-        name="search-term"
-        value={searchTerm}
-      />
-      <button type="submit" onClick={async e=> {
-        e.preventDefault();
-        setJobs(await JoblyApi.getAllJobs({ title: searchTerm }));
-        }}>Search</button>
-
-      {jobs.map(job =>(<JobCard {...job} />))}
+      {jobs ? null :
+        <>
+          <input 
+            onChange={(e) => 
+            setSearchTerm(e.target.value)}
+            name="search-term"
+            value={searchTerm}
+          />
+          <button type="submit" onClick={async e=> {
+            e.preventDefault();
+            setJobList(await JoblyApi.getAllJobs({ title: searchTerm }));
+          }}>Search</button>
+        </> 
+      }
+      {jobList.map(job =>(<JobCard key={job.id} {...job} />))}
 
    
     </div>

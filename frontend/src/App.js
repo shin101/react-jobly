@@ -8,20 +8,27 @@ import jwt from "jsonwebtoken";
 import UserContext from './Login/UserContext';
 
 
-
 function App() {
   const [token, setToken] = useState(null);
   const [currUser, setCurrUser] = useState(null);
-  
-
+  const [applications, setApplications] = useState(new Set());
   
   // triggered by state change of token 
   // call backend to get information on the newly-logged-in user and store it in the currentUser state
 
   useEffect(() => {
-    let payload = jwt.decode(token);
-    JoblyApi.token = token; 
-    setCurrUser(payload);
+    async function loadCurrentUser() {
+      const payload = jwt.decode(token);
+      JoblyApi.token = token;
+      const currUser = await JoblyApi.getUser(payload.username);
+
+      setCurrUser(currUser);
+      setApplications(new Set(currUser.applications));
+    }
+
+    if (token) {
+      loadCurrentUser();
+    }    
   }, [token]); 
 
   async function login(loginData){
@@ -43,19 +50,25 @@ function App() {
     setCurrUser(null);
     setToken(null);
   }
-  
-    return (
-      <div>
-        <BrowserRouter>
-          <UserContext.Provider value={{ currUser, setCurrUser }}>
-            <NavBar logOut={logOut} />
-            <NavRoutes signUp={signUp} login={login}  />
-          </UserContext.Provider>
-        </BrowserRouter>
-      </div>
-  
-    );
+
+  async function apply(id) {
+    if (!applications.has(id)) {
+      const jobId = await JoblyApi.apply(currUser.username, id);
+      setApplications(applications => new Set([...applications, jobId]));
+    }
   }
+  
+  return (
+    <div>
+      <BrowserRouter>
+        <UserContext.Provider value={{ applications, currUser, setCurrUser, apply }}>
+          <NavBar logOut={logOut} />
+          <NavRoutes signUp={signUp} login={login}  />
+        </UserContext.Provider>
+      </BrowserRouter>
+    </div>
+  );
+}
 
 
 export default App;

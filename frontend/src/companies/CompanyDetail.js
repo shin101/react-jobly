@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useParams } from "react-router-dom";
 import JoblyApi from "../API/api"
+import JobList from '../jobs/JobList';
 
 function CompanyDetail(){
   const { id } = useParams();
   const [company, setCompany] = useState(null);
+
 
   useEffect(() => {
     async function search(){
@@ -15,13 +17,15 @@ function CompanyDetail(){
 
   return (
     <div> 
-      {company ? 
-        <div>
-          <h3>{id}</h3>
-          {company.name}
-          {company.jobs.map(j => <p>{j.title}: {j.salary} {j.equity}</p>)}
-        </div>
-      : <p>loading</p>}
+      {company 
+        ? <div>
+            <h3>{company.name}</h3>
+            {/* {company.jobs.map(j => <p> <b>{j.title}</b>
+            <p>Salary: {j.salary}</p>  <p>Equity: {j.equity}</p> */}
+            <JobList jobs={company.jobs} />
+          </div>
+        : <p>loading</p>
+      }
     </div>
   );
 }

@@ -9,7 +9,6 @@ function CompanyCard({ name, description, logo, id, handle }){
       <div className='container'>
         <div className="companyName">{name}</div>
         <p className="description"><small>{description}</small></p>
- 
       </div>
     </Link>
   )

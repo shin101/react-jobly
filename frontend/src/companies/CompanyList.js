@@ -27,7 +27,7 @@ function CompanyList(){
         setCompanies(await JoblyApi.getAllCompanies({ name: searchTerm }));
       }}>Search</button>
       {companies.map(company => (
-        <CompanyCard {...company} />
+        <CompanyCard key={company.handle} {...company} />
       ))}
     </div>
   )
