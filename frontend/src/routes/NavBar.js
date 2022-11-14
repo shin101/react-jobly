@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from 'react-bootstrap/Navbar';
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./NavBar.css"
+import UserContext from "../Login/UserContext";
 
-function NavBar({ currUser }) {
+function NavBar({ logOut }) {
+  const { currUser } = useContext(UserContext);
+
   function loggedInNav() {
     return (
       <div>
@@ -20,9 +23,9 @@ function NavBar({ currUser }) {
           <NavLink to="/profile">
             Profile
           </NavLink>
-          <NavLink to="/logout">
+          <Link to="/" onClick={logOut}>
             Logout
-          </NavLink>
+          </Link>
         </Navbar>
       </div>
     )

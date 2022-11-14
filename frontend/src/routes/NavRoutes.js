@@ -6,8 +6,9 @@ import JobList from "../jobs/JobList";
 import CompanyDetail from "../companies/CompanyDetail";
 import RegisterForm from "../Login/RegisterForm";
 import LoginForm from "../Login/LoginForm";
+import Homepage from "../Homepage/Homepage";
 
-function NavRoutes({ login, logout, signUp }) {
+function NavRoutes({ login, signUp }) {
   return (
     <div>
       <Routes>
@@ -17,6 +18,7 @@ function NavRoutes({ login, logout, signUp }) {
         <Route exact path="/jobs" element={<JobList />} />
         <Route exact path="/signup" element={<RegisterForm signUp={signUp} />} />
         <Route exact path="/login" element={<LoginForm login={login} />} />
+        <Route exact path="/" element={<Homepage />} />
       </Routes>
     </div>
   )

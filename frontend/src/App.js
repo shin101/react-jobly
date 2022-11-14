@@ -22,8 +22,7 @@ function App() {
     let payload = jwt.decode(token);
     JoblyApi.token = token; 
     setCurrUser(payload);
-    // hit /token route??? 
-  }, [token]); // is [token] just a standard? do u need bracket 
+  }, [token]); 
 
   async function login(loginData){
     try {
@@ -40,16 +39,16 @@ function App() {
       setToken(token);
     }
 
-
   function logOut(){
     setCurrUser(null);
+    setToken(null);
   }
   
     return (
       <div>
         <BrowserRouter>
-          <UserContext.Provider value={{currUser}}>
-            <NavBar currUser={currUser}/>
+          <UserContext.Provider value={{ currUser }}>
+            <NavBar logOut={logOut} />
             <NavRoutes signUp={signUp} login={login} />
           </UserContext.Provider>
         </BrowserRouter>
